@@ -11,15 +11,6 @@ jobs:
         name: Checkout
         uses: actions/checkout@v2
       -
-        name: Docker meta
-        id: docker_meta
-        uses: crazy-max/ghaction-docker-meta@v1
-        with:
-          images: ${GITHUB_REPOSITORY}
-          tag-semver: |
-            {{version}}
-            {{major}}.{{minor}}
-      -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v1
         with:
