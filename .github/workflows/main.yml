@@ -42,6 +42,7 @@ jobs:
           file: ./Dockerfile
           platforms: linux/arm/v6,linux/arm/v7,linux/amd64
           push: ${{ github.event_name != 'pull_request' }}
+          tags: latest
 #          tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
       - 
