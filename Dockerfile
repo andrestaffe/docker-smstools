@@ -1,13 +1,10 @@
 FROM alpine:3
 
-COPY ["docker-entrypoint.sh", "/usr/bin/"]
-RUN apk add smstools && \
- chmod +x /usr/bin/docker-entrypoint.sh
+RUN apk add smstools supervisor && \
+    mkdir -p /var/spool/sms/{outgoing,checked,failed,incoming,sent}
 
-VOLUME [ "/var/spool/sms" ]
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 WORKDIR /var/spool/sms
 
-ENTRYPOINT ["/usr/bin/docker-entrypoint.sh"]
-
-CMD [ "smsd", "-t" ]
+CMD ["/usr/bin/supervisord"]
