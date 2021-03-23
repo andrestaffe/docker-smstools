@@ -1,4 +1,4 @@
-FROM alpine:3.8
+FROM alpine:3
 
 COPY ["docker-entrypoint.sh", "/usr/bin/"]
 RUN apk add smstools && \
