@@ -15,10 +15,10 @@ jobs:
         id: docker_meta
         uses: crazy-max/ghaction-docker-meta@v1
         with:
-          images: andrestaffe/docker-smstools
-          tag-semver: |
-            {{version}}
-            {{major}}.{{minor}}
+          images: ${GITHUB_REPOSITORY}
+#          tag-semver: |
+#            {{version}}
+#            {{major}}.{{minor}}
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -42,7 +42,7 @@ jobs:
           file: ./Dockerfile
           platforms: linux/arm/v6,linux/arm/v7,linux/amd64
           push: ${{ github.event_name != 'pull_request' }}
-          tags: latest
+          tags: ${GITHUB_REPOSITORY}:latest
 #          tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
       - 
@@ -51,5 +51,5 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
-          repository: andrestaffe/docker-smstools
+          repository: ${GITHUB_REPOSITORY}
           readme-filepath: ./README.md
