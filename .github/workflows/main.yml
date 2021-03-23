@@ -15,7 +15,7 @@ jobs:
         id: docker_meta
         uses: crazy-max/ghaction-docker-meta@v1
         with:
-          images: $GITHUB_REPOSITORY
+          images: andrestaffe/docker-smstools
 #          tag-semver: |
 #            {{version}}
 #            {{major}}.{{minor}}
@@ -40,7 +40,7 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          platforms: linux/arm/v6,linux/arm/v7,linux/amd64
+          platforms: linux/arm/v6,linux/arm/v7,linux/amd64,linux/arm64
           push: ${{ github.event_name != 'pull_request' }}
           tags: andrestaffe/docker-smstools:latest
 #          tags: ${{ steps.docker_meta.outputs.tags }}
@@ -51,5 +51,5 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
-          repository: $GITHUB_REPOSITORY
+          repository: andrestaffe/docker-smstools
           readme-filepath: ./README.md
