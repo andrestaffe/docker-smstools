@@ -11,6 +11,15 @@ jobs:
         name: Checkout
         uses: actions/checkout@v2
       -
+        name: Docker meta
+        id: docker_meta
+        uses: crazy-max/ghaction-docker-meta@v1
+        with:
+          images: andrestaffe/docker-smstools
+          tag-semver: |
+            {{version}}
+            {{major}}.{{minor}}
+      -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v1
         with:
@@ -41,5 +50,5 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
-          repository: ${GITHUB_REPOSITORY}
+          repository: andrestaffe/docker-smstools
           readme-filepath: ./README.md
