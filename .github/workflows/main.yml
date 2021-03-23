@@ -1,4 +1,4 @@
-name: debian
+name: docker-smstools
 
 on:
   push:
@@ -16,6 +16,9 @@ jobs:
         uses: crazy-max/ghaction-docker-meta@v1
         with:
           images: andrestaffe/docker-smstools
+          tag-semver: |
+            {{version}}
+            {{major}}.{{minor}}
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -39,7 +42,7 @@ jobs:
           file: ./Dockerfile
           platforms: linux/arm/v6,linux/arm/v7,linux/amd64
           push: ${{ github.event_name != 'pull_request' }}
-          tags: latest
+          tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
       - 
         name: Docker Hub Description
